@@ -1,0 +1,53 @@
+<div class="container mt-5" id="main-content">
+    <div class="row d-flex justify-content-center">
+      <form style="min-width: 300px;" novalidate="novalidate" (ngSubmit)="submit()">
+        <h5 class="text-center">Contact form</h5>
+  
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="Contact name" name="name"
+            [(ngModel)]="contact.name" />
+          <ng-container *ngIf="error">
+            <ng-container *ngIf="error.field == 'name'">
+              <small class="text-danger">{{error.message}}</small>
+            </ng-container>
+          </ng-container>
+        </div>
+  
+        <div class="form-group">
+          <input class="form-control" type="email" placeholder="Contact email" name="email"
+            [(ngModel)]="contact.email" />
+          <ng-container *ngIf="error">
+            <ng-container *ngIf="error.field == 'email'">
+              <small class="text-danger">{{error.message}}</small>
+            </ng-container>
+          </ng-container>
+        </div>
+  
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="Contact phone" name="phone"
+            [(ngModel)]="contact.phone" />
+          <ng-container *ngIf="error">
+            <ng-container *ngIf="error.field == 'phone'">
+              <small class="text-danger">{{error.message}}</small>
+            </ng-container>
+          </ng-container>
+        </div>
+  
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" class="btn btn-block btn-primary">
+                <i class="fa fa-save"></i> Save
+              </button>
+            </div>
+  
+            <div class="col-6">
+              <button type="button" (click)="back()" class="btn btn-block btn-default">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,78 @@
+<div class="container mt-5" id="main-content">
+  <div class="row">
+    <div class="col-6 no-padding">
+      <form class="form-inline" (ngSubmit)="search()">
+        <input class="form-control mr-sm-2" type="search" name="term" [(ngModel)]="term"
+          placeholder="Search by name ..." />
+        <button class="btn btn-primary" type="submit">
+          <i class="fa fa-search"></i> Search
+        </button>
+      </form>
+    </div>
+
+    <div class="col-6 no-padding">
+      <a href="#" class="btn btn-success float-right" (click)="add($event)"> <i class="fa fa-plus-square"></i> New
+        contact
+      </a>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <ng-container *ngIf="contacts; else noContact">
+      <ng-container *ngIf="contacts.length > 0; else noContact">
+        <div class="table-responsive">
+          <h5>List of contacts</h5>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let contact of contacts; let i = index">
+                <tr>
+                  <th scope="row">{{i + 1}}</th>
+                  <td>{{contact.name}}</td>
+                  <td>{{contact.email}}</td>
+                  <td>{{contact.phone}}</td>
+                  <td><a href="#" class="mr-sm-2 text-primary" (click)="edit(contact, $event)"><i
+                        class="fa fa-pencil"></i></a> <a href="#" (click)="showModal($event)" data-toggle="modal"
+                      [attr.data-target]="'#delete-'+contact.id" class="text-danger"><i class="fa fa-trash"></i></a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete-{{contact.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Delete Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Do you want to delete {{contact.name}} ?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="delete(contact)">Delete</button>
+                            <button type="button" class="btn btn-secondary" #close data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #noContact>
+      <h5>No Contacts</h5>
+    </ng-template>
+  </div>
+</div>
